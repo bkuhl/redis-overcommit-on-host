@@ -1,6 +1,6 @@
 # redis-overcommit-on-host
 
-Enable overcommitting to memory on a host running a redis container.
+Enable overcommitting to memory on a host running a redis container.  See the [Redis documentation](https://redis.io/topics/faq#background-saving-fails-with-a-fork-error-under-linux-even-if-i-have-a-lot-of-free-ram) for more information.
 
 # How to use
 
