@@ -1,0 +1,9 @@
+services: docker
+script:
+  - docker build -t "bkuhl/redis-overcommit-on-host:latest" .
+deploy:
+  provider: script
+  script: docker push "bkuhl/redis-overcommit-on-host:latest"
+  skip_cleanup: false
+  on:
+    tags: true
