@@ -1,3 +1,7 @@
 FROM alpine:latest
 
-RUN echo 1 > /mnt/vm/overcommit_memory
+COPY run.sh /run.sh
+
+VOLUME /mnt
+
+CMD ["/run.sh"]
