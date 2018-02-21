@@ -7,7 +7,7 @@ before_deploy:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 deploy:
   provider: script
-  script: docker push "bkuhl/redis-overcommit-on-host:latest" && docker tag "bkuhl/redis-overcommit-on-host:latest" "bkuhl/redis-overcommit-on-host:${MAJOR}" && docker push "bkuhl/php:${MAJOR}" && docker tag "bkuhl/redis-overcommit-on-host:latest" "bkuhl/redis-overcommit-on-host:${MAJOR}.${MINOR}" && docker push "bkuhl/php:${MAJOR}.${MINOR}" && docker tag "bkuhl/redis-overcommit-on-host:latest" "bkuhl/redis-overcommit-on-host:${MAJOR}.${MINOR}.${PATCH}" && docker push "bkuhl/redis-overcommit-on-host:${MAJOR}.${MINOR}.${PATCH}"
+  script: docker push "bkuhl/redis-overcommit-on-host:latest" && docker tag "bkuhl/redis-overcommit-on-host:latest" "bkuhl/redis-overcommit-on-host:${MAJOR}" && docker push "bkuhl/redis-overcommit-on-host:${MAJOR}" && docker tag "bkuhl/redis-overcommit-on-host:latest" "bkuhl/redis-overcommit-on-host:${MAJOR}.${MINOR}" && docker push "bkuhl/redis-overcommit-on-host:${MAJOR}.${MINOR}" && docker tag "bkuhl/redis-overcommit-on-host:latest" "bkuhl/redis-overcommit-on-host:${MAJOR}.${MINOR}.${PATCH}" && docker push "bkuhl/redis-overcommit-on-host:${MAJOR}.${MINOR}.${PATCH}"
   skip_cleanup: false
   on:
     tags: true
