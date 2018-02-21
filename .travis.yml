@@ -1,9 +1,13 @@
 services: docker
 script:
   - docker build -t "bkuhl/redis-overcommit-on-host:latest" .
+before_deploy:
+  # Extract the version components out of a `v12.34.56` or `12.34.56` version string (only works if this is a
+  - IFS=. read MAJOR MINOR PATCH <<< "${TRAVIS_TAG#v}"
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 deploy:
   provider: script
-  script: docker push "bkuhl/redis-overcommit-on-host:latest"
+  script: docker push "bkuhl/redis-overcommit-on-host:latest" && docker tag "bkuhl/redis-overcommit-on-host:latest" "bkuhl/redis-overcommit-on-host:${MAJOR}" && docker push "bkuhl/php:${MAJOR}" && docker tag "bkuhl/redis-overcommit-on-host:latest" "bkuhl/redis-overcommit-on-host:${MAJOR}.${MINOR}" && docker push "bkuhl/php:${MAJOR}.${MINOR}" && docker tag "bkuhl/redis-overcommit-on-host:latest" "bkuhl/redis-overcommit-on-host:${MAJOR}.${MINOR}.${PATCH}" && docker push "bkuhl/redis-overcommit-on-host:${MAJOR}.${MINOR}.${PATCH}"
   skip_cleanup: false
   on:
     tags: true
