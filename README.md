@@ -5,12 +5,13 @@ Enable overcommitting to memory on a host running a redis container.  See the [R
 # How to use
 
  * Schedule this container to run alongside any host with a running `redis` container.
- * Mount a volume on this container with `-v /proc/sys/vm:/mnt/vm` and run with `--privileged`
- * Reboot host
- 
+ * Pull in this repository and run the container:
 ```sh
 docker run https://github.com/bkuhl/redis-overcommit-on-host.git -v /proc/sys/vm:/mnt/vm --privileged
 ```
+ * Reboot host
+ 
+
  
 ### Why do this in a container?
 
