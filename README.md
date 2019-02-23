@@ -20,6 +20,8 @@ services:
     build: https://github.com/bkuhl/redis-overcommit-on-host.git
     restart: 'no'
     privileged: true
+    volumes:
+      - /proc/sys/vm:/mnt/vm
 
   # Your existing Redis service
   redis:
