@@ -3,14 +3,31 @@
 Enable overcommitting to memory on a host running a redis container.  See the [Redis documentation](https://redis.io/topics/faq#background-saving-fails-with-a-fork-error-under-linux-even-if-i-have-a-lot-of-free-ram) for more information.
 
 # How to use
+Schedule this container to run alongside any host with a running `redis` container.
 
- * Schedule this container to run alongside any host with a running `redis` container.
- * Pull in this repository and run the container:
+##### Command line
 ```sh
 docker run https://github.com/bkuhl/redis-overcommit-on-host.git -v /proc/sys/vm:/mnt/vm --privileged
 ```
- * Reboot host
- 
+
+##### Docker Compose
+```yml
+version: '3'
+
+services:
+  # redis-overcommit-on-host
+  redis-overcommit:
+    build: https://github.com/bkuhl/redis-overcommit-on-host.git
+    restart: 'no'
+    privileged: true
+
+  # Your existing Redis service
+  redis:
+    image: 'redis'
+    restart: 'always'
+    depends_on:
+      - redis-overcommit
+```
 
  
 ### Why do this in a container?
